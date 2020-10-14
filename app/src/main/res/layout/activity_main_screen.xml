@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainScreen">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/reallogo2"/>
+
+
+    <FrameLayout
+        android:id="@+id/bottomNavbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_logo"
+        android:layout_above="@id/bottomNavbar"/>
+
+
+
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:menu="@menu/bottom_menu"
+    app:elevation="18dp"
+    style="@style/Widget.Design.BottomNavigationView"
+    android:background="@color/white"
+    android:layout_alignParentBottom="true">
+
+<!-- app:labelVisibilityMode="labeled"-->
+
+</com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="35dp">
+
+
+    <!--
+        <TextView
+            android:id="@+id/txt_tendency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TÊNDENCIAS"
+            android:textColor="@color/colorGradient2"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_below="@id/edit_search"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            />
+
+        -->
+
+
+    <ImageView
+        android:id="@+id/imgService"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/subservice1"/>
+
+    <TextView
+        android:id="@+id/txtService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="@color/colorGradient2"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_below="@id/imgService"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
+        />
+
+    <TextView
+        android:id="@+id/txtDescService"
+        android:layout_below="@id/txtService"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="description" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:layout_below="@id/txtDescService">
+
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="E N T R A R"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:background="@drawable/gradient_splash"
+             />
+
+    </LinearLayout>
+
+</RelativeLayout>

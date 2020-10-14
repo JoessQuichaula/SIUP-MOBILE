@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Serviço Integrado das Unidades Públicas</string>
+    <string name="verfication_advert">Por Favor, Verifique se na sua caixa de mensagens o código de Verificação</string>
+    <string name="InsertNum">INSERE O SEU NÚMERO DE TELEMÓVEL</string>
+
+    <string-array name="provincias">
+        <item>LUANDA</item>
+        <item>BENGO</item>
+        <item>BENGUELA</item>
+        <item>HUAMBO</item>
+        <item>KWANZA SUL</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_apresentation_screen">ApresentationScreen</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>
