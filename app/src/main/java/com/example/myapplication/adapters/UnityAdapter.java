@@ -50,6 +50,7 @@ public class UnityAdapter extends RecyclerView.Adapter<UnityAdapter.UnityViewHol
                 .with(context)
                 .load(baseUrl+"/storage/"+ imgUnity)
                 .into(holder.imgUnity);
+
         holder.txtUnity.setText(unityItem.getTxtUnity());
         holder.btnUnity.setOnClickListener(new View.OnClickListener() {
             @Override

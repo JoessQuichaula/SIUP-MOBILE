@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ServiceItem {
 
+
+    @SerializedName("id")
+    private int idService;
+
     @SerializedName("imagem")
     private String imgService;
 
@@ -16,15 +20,16 @@ public class ServiceItem {
     @SerializedName("id_unidade")
     private int idUnity;
 
-    public ServiceItem(String imgService, String txtService, String txtDescService, int idUnity) {
+    public ServiceItem(int idService, String imgService, String txtService, String txtDescService, int idUnity) {
+        this.idService = idService;
         this.imgService = imgService;
         this.txtService = txtService;
         this.txtDescService = txtDescService;
         this.idUnity = idUnity;
     }
 
-    public int getIdUnity() {
-        return idUnity;
+    public int getIdService() {
+        return idService;
     }
 
     public String getImgService() {
@@ -37,5 +42,9 @@ public class ServiceItem {
 
     public String getTxtDescService() {
         return txtDescService;
+    }
+
+    public int getIdUnity() {
+        return idUnity;
     }
 }

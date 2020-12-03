@@ -35,6 +35,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private Activity mView;
     private String baseUrl;
     int idUnity;
+    int idService;
+
     public ServiceAdapter(List<ServiceItem> serviceItems, Context context, FragmentManager fragmentManager, Activity mView, String baseUrl,int idUnity) {
         this.serviceItems = serviceItems;
         this.context = context;
@@ -56,7 +58,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     @Override
     public void onBindViewHolder(@NonNull final ServiceViewHolder holder, int position) {
 
-        ServiceItem serviceItem = serviceItems.get(position);
+        final ServiceItem serviceItem = serviceItems.get(position);
         CharSequence txtService = Html.fromHtml(serviceItem.getTxtService());
         CharSequence txtDescService = Html.fromHtml(serviceItem.getTxtDescService());
         String imgService = serviceItem.getImgService().replace("\\","/");
@@ -71,6 +73,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
+                idService = serviceItem.getIdService();
                 String v1 = holder.txtService.getText().toString();
                 String v2 = holder.txtDescService.getText().toString();
                 startNewService(v1,v2);
@@ -88,7 +91,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         ImageView imgLogo = mView.findViewById(R.id.app_logo);
         imgLogo.setVisibility(View.GONE);
         homeTab.setVisibility(View.GONE);
-        ServiceScreen2 serviceScreen2 = new ServiceScreen2(idUnity);
+        ServiceScreen2 serviceScreen2 = new ServiceScreen2(idUnity,idService);
         serviceScreen2.setArguments(bundle);
 
         fragmentManager

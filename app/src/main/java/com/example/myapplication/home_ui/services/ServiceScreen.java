@@ -14,12 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RetrofitConfig;
-import com.example.myapplication.adapters.UnityAdapter;
 import com.example.myapplication.models.ServiceItem;
 import com.example.myapplication.adapters.ServiceAdapter;
-import com.example.myapplication.models.UnityItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +34,7 @@ public class ServiceScreen extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_service_screen2, container, false);
+        return inflater.inflate(R.layout.fragment_service_screen, container, false);
     }
 
     RecyclerView recyclerService;
@@ -59,6 +56,7 @@ public class ServiceScreen extends Fragment {
             @Override
             public void onResponse(Call<List<ServiceItem>> call, Response<List<ServiceItem>> response) {
                 if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Funcionou nos Servicos", Toast.LENGTH_SHORT).show();
                     onResponseSuccess(response.body(), retrofitConfig.baseUrl);
                 } else
                     Toast.makeText(getContext(), "Response is not Sucessful", Toast.LENGTH_SHORT).show();

@@ -45,7 +45,7 @@
                 android:id="@+id/txtNewsBody"
                 android:text="txtNewsBody"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_below="@id/txtNewsTitle"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
@@ -62,7 +62,6 @@
                 android:layout_alignParentBottom="true"
                 android:drawableStart="@drawable/clock_16px"
                 android:drawablePadding="5dp"
-                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 />
 

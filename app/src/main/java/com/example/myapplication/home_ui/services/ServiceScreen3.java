@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -37,7 +37,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,7 +69,8 @@ public class ServiceScreen3 extends Fragment {
     String fora;
     String imgDivision;
     int idUnity;
-
+    int idService;
+    int idDivision;
 
     //Marker Map Attributes
     int idCounty;
@@ -78,8 +78,9 @@ public class ServiceScreen3 extends Fragment {
     HashMap<String,Integer> hashMap = new HashMap<>();
 
 
-    public ServiceScreen3(int idUnity) {
+    public ServiceScreen3(int idUnity, int idService) {
         this.idUnity = idUnity;
+        this.idService = idService;
     }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -101,13 +102,14 @@ public class ServiceScreen3 extends Fragment {
             if (mPermissionGranted){
                 DeviceLocation();
             }
+
         }
     };
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_service_screen4, container, false);
+        return inflater.inflate(R.layout.fragment_service_screen3, container, false);
     }
 
     @Override
@@ -121,6 +123,8 @@ public class ServiceScreen3 extends Fragment {
         }
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
     }
+
+
 
 
     //Fetch the Data from Server To Google Maps
@@ -149,7 +153,7 @@ public class ServiceScreen3 extends Fragment {
         if (divisionItems == null)
             Toast.makeText(getContext(),"Response is Successful but ResponseBody is null" , Toast.LENGTH_SHORT).show();
         else{
-
+           //BitmapDescriptorFactory.fromResource()
             int index = 0;
             for (final DivisionItem divisionItem:divisionItems) {
                 LatLng divisionPosition = new LatLng(divisionItem.getLat(),divisionItem.getLng());
@@ -163,10 +167,10 @@ public class ServiceScreen3 extends Fragment {
                 public boolean onMarkerClick(final Marker marker) {
 
                     final DivisionItem divisionItem = divisionItems.get(hashMap.get(marker.getId()));
+                    idDivision = divisionItem.getId();
                     idCounty = divisionItem.getIdCounty();
                     callType = retrofitConfig.callDivisionType(divisionItem.getIdType());
                     callCounty = retrofitConfig.callCounty(idCounty);
-
 
                     callType.enqueue(new Callback<DivisionTypeItem>() {
                         @Override
@@ -181,7 +185,7 @@ public class ServiceScreen3 extends Fragment {
                                         if (response.isSuccessful()){
                                             assert response.body() != null;
                                             fora = response.body().getTxtCounty();
-                                            BottomSheetDialog bottomSheetDialog =  new BottomSheetDialog(getContext());
+                                            final BottomSheetDialog bottomSheetDialog =  new BottomSheetDialog(getContext());
                                             bottomSheetDialog.setContentView(R.layout.layout_bottomsheet);
                                             txtDialogViews[0] = bottomSheetDialog.findViewById(R.id.txtDialogTitle);
                                             txtDialogViews[1] = bottomSheetDialog.findViewById(R.id.txtDialogAddress);
@@ -204,9 +208,10 @@ public class ServiceScreen3 extends Fragment {
                                                 @Override
                                                 public void onClick(View v) {
                                                     Toast.makeText(getContext(), "IamGood", Toast.LENGTH_SHORT).show();
-                                                    //getFragmentManager().beginTransaction()
-                                                    //      .replace(R.id.services_container,new ServiceScreen4())
-                                                    //    .commit();
+                                                    getFragmentManager().beginTransaction()
+                                                          .replace(R.id.services_container,new ServiceScreen4(idDivision,idService))
+                                                          .commit();
+                                                    bottomSheetDialog.dismiss();
                                                 }
                                             });
                                             bottomSheetDialog.show();

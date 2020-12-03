@@ -2,8 +2,6 @@ package com.example.myapplication.home_ui.services;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -11,12 +9,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.PathUtils;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
+import android.os.FileUtils;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -25,48 +21,41 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.RetrofitConfig;
-import com.example.myapplication.adapters.DocumentAdapter;
 import com.example.myapplication.adapters.ServiceAdapter;
-import com.example.myapplication.models.DocumentItem;
 import com.example.myapplication.models.ServiceItem;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ServiceScreen4 extends Fragment {
+public class ServiceScreen5 extends Fragment {
 
 
-    private int idService;
+    private ArrayList<Uri> documentsUri;
     private int idDivision;
-    private int documentItemPosition;
-    EditText editDocumentPath;
-    TextView txtDocument;
-    ArrayList<Uri> documentUries;
-    List<DocumentItem> documentItemsTeste;
-    SharedPreferences uriSaver;
+    private int idService;
 
-
-    public ServiceScreen4(int idDivision,int idService){
+    public ServiceScreen5(ArrayList<Uri> documentsUri, int idDivision, int idService) {
+        this.documentsUri = documentsUri;
         this.idDivision = idDivision;
         this.idService = idService;
     }
@@ -75,120 +64,74 @@ public class ServiceScreen4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service_screen4, container, false);
+        return inflater.inflate(R.layout.fragment_service_screen5, container, false);
     }
-    private RecyclerView recyclerDocuments;
-    private DocumentAdapter documentAdapter;
-    private FloatingActionButton btnNext;
-    private HashMap<Integer,Uri> hashMap;
 
+    Button btnSend;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        documentUries = new ArrayList<>();
-        uriSaver = getActivity().getSharedPreferences("uriSaver",Context.MODE_PRIVATE);
-        hashMap = new HashMap<>();
-        btnNext = view.findViewById(R.id.btnNext);
-        recyclerDocuments = view.findViewById(R.id.recyclerDocuments);
-        recyclerDocuments.setLayoutManager(new LinearLayoutManager(getContext()));
-        retrofitFetch();
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnSend = view.findViewById(R.id.btnSend);
+        btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hashMap.size()==documentItemsTeste.size()){
-                    for (Map.Entry<Integer, Uri> entry : hashMap.entrySet()) {
-                        documentUries.add(entry.getValue());
-                    }
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.services_container,new ServiceScreen5(documentUries,idDivision,idService))
-                            .commit();
-
-                }else{
-                    Snackbar.make(getView(),"Despacho de Documentos em Falta",Snackbar.LENGTH_LONG).show();
-                }
+                retrofitFetch();
             }
         });
+
     }
+
+
     private void retrofitFetch() {
         final RetrofitConfig retrofitConfig = new RetrofitConfig();
         retrofitConfig.initRetrofit();
-        Call<List<DocumentItem>> call = retrofitConfig.callDocument(idService);
-        call.enqueue(new Callback<List<DocumentItem>>() {
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        for (int i = 0; i < documentsUri.size();++i){
+            parts.add(prepareFilePart("image"+i,documentsUri.get(i)));
+        }
+        RequestBody idDivisionPart = RequestBody.create(MultipartBody.FORM,Integer.toString(idDivision));
+        RequestBody idServicePart = RequestBody.create(MultipartBody.FORM,Integer.toString(idService));
+
+        Call<ResponseBody> call = retrofitConfig.callUploadDocuments(parts,idDivisionPart,idServicePart);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<List<DocumentItem>> call, Response<List<DocumentItem>> response) {
-                if (response.isSuccessful()) {
-                    onResponseSuccess(response.body(), retrofitConfig.baseUrl);
-                } else
-                    Toast.makeText(getContext(), "Response is not Sucessful", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                   onResponseSuccess();
+                }else {
+                    Toast.makeText(getContext(), "Respondeu mas não enviou", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<List<DocumentItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "Internet Connection Failed", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Meu Irmão falhou mesmo", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    private void onResponseSuccess(List<DocumentItem> documentItems, String baseUrl) {
-        if (documentItems == null)
-            Toast.makeText(getContext(), "Response is Successful but ResponseBody is null", Toast.LENGTH_SHORT).show();
-        else {
-            documentItemsTeste = documentItems;
-            documentAdapter = new DocumentAdapter(getContext(),documentItems,getActivity(),this);
-            recyclerDocuments.setAdapter(documentAdapter);
-        }
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case 102:
-
-                if (resultCode == getActivity().RESULT_OK && data != null && data.getData() != null){
-                    SharedPreferences uriSaver = getActivity().getSharedPreferences("uriSaver",getActivity().MODE_PRIVATE);
-                    documentItemPosition = uriSaver.getInt("itemPosition",100);
-                    Uri uri = data.getData();
-
-                    if (hashMap.containsValue(uri)) {
-                        for (Map.Entry<Integer, Uri> entry : hashMap.entrySet()) {
-                            if (entry.getValue().getPath().equals(uri.getPath())) {
-                                Snackbar snackbar = Snackbar.make(getView(),"O Documento escolhido já foi disposto no(a) "+documentItemsTeste.get(entry.getKey()).getTxtDocument(),Snackbar.LENGTH_INDEFINITE);
-                                snackbar.setAction("Fechar", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        snackbar.dismiss();
-                                    }
-                                }).show();
-                                break;
-                            } else {
-                                Toast.makeText(getContext(), "Not", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                    else{
-
-                        hashMap.put(documentItemPosition,uri);
-
-                        editDocumentPath = recyclerDocuments
-                                .findViewHolderForAdapterPosition(documentItemPosition)
-                                .itemView
-                                .findViewById(R.id.editDocumentPath);
-                        editDocumentPath.setText(getPath(uri,getContext()));
-
-
-
-
-                    }
-                }
-                break;
-        }
 
     }
+    private void onResponseSuccess() {
+        Toast.makeText(getContext(), "Enviou", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String fileName,Uri fileUri){
+        File file = new File(getPath(fileUri,getContext()));
+
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData(fileName, file.getName(), requestFile);
+
+        return body;
+    }
+
 
     /*
-
     public static String getPathFromUri(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -285,7 +228,6 @@ public class ServiceScreen4 extends Fragment {
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
-
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
@@ -293,8 +235,12 @@ public class ServiceScreen4 extends Fragment {
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
+
 */
 
+
+
+    //Get File Path From URI - New Concept of API 29 BUILT IN
 
     private static Uri contentUri;
     //@SuppressLint("NewApi")
@@ -308,7 +254,7 @@ public class ServiceScreen4 extends Fragment {
 
             // ExternalStorageProvider
            if (isExternalStorageDocument(uri)) {
-                Toast.makeText(context, "isExternalStorageUri", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isExternalStorageUri", Toast.LENGTH_SHORT).show();
                 /*
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
@@ -320,12 +266,13 @@ public class ServiceScreen4 extends Fragment {
                 } else {
                     return null;
                 }
-                */
+
+                 */
             }
 
             // DownloadsProvider
             if (isDownloadsDocument(uri)) {
-                Toast.makeText(context, "isDownloadDocument", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isDownloadDocument", Toast.LENGTH_SHORT).show();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (isGooglePhotosUri(uri)) {
                         return uri.getLastPathSegment();
@@ -341,7 +288,6 @@ public class ServiceScreen4 extends Fragment {
                         // return getRealPathFromURI(context,uri);
                     }
 
-                    //This Comment is for Build Version M
                     /*
                     final String id;
                     Cursor cursor = null;
@@ -385,11 +331,9 @@ public class ServiceScreen4 extends Fragment {
 
                  */
                 }
-
                 else {
 
                     final String id = DocumentsContract.getDocumentId(uri);
-
 
                     if (id.startsWith("raw:")) {
                         return id.replaceFirst("raw:", "");
@@ -411,16 +355,18 @@ public class ServiceScreen4 extends Fragment {
                             return newFilePath;
                         }
                         return filePath;
+
                     }
                 }
             }
 
             // MediaProvider
             if (isMediaDocument(uri)) {
-                Toast.makeText(context, "isMediaDocument", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isMediaDocument", Toast.LENGTH_SHORT).show();
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
+
 
                 Uri contentUri = null;
 
@@ -439,19 +385,19 @@ public class ServiceScreen4 extends Fragment {
                         selectionArgs);
             }
 
+
             if (isGoogleDriveUri(uri)) {
-                Toast.makeText(context, "isGoogleDriveUri", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isGoogleDriveUri", Toast.LENGTH_SHORT).show();
                 return getDriveFilePath(uri,context);
             }
 
             if(isWhatsAppFile(uri)){
-                Toast.makeText(context, "isWhatsappFile", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isWhatsappFile", Toast.LENGTH_SHORT).show();
                 return getFilePathForWhatsApp(uri,context);
             }
 
-
             if ("content".equalsIgnoreCase(uri.getScheme())) {
-                Toast.makeText(context, "isContent", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isContent", Toast.LENGTH_SHORT).show();
                 if (isGooglePhotosUri(uri)) {
                     return uri.getLastPathSegment();
                 }
@@ -471,10 +417,12 @@ public class ServiceScreen4 extends Fragment {
                 }
 
             }
+
             if ("file".equalsIgnoreCase(uri.getScheme())) {
-                Toast.makeText(context, "isFile", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "isFile", Toast.LENGTH_SHORT).show();
                 return uri.getPath();
             }
+
         }
         else {
 
@@ -499,7 +447,6 @@ public class ServiceScreen4 extends Fragment {
                 }
             }
         }
-
 
         return null;
     }
@@ -581,6 +528,7 @@ public class ServiceScreen4 extends Fragment {
         return file.getPath();
     }
 
+
     /*
     /***
      * Used for Android Q+
@@ -588,7 +536,6 @@ public class ServiceScreen4 extends Fragment {
      * @param newDirName if you want to create a directory, you can set this variable
      * @return
      */
-
 
     private static String copyFileToInternalStorage(Uri uri,String newDirName,Context context) {
         Uri returnUri = uri;

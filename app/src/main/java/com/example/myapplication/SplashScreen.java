@@ -12,20 +12,26 @@ import com.example.myapplication.registerScreens.Register_Screen;
 
 public class SplashScreen extends AppCompatActivity {
 
-    AnimationDrawable animationDrawable;
-    RelativeLayout relativeLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-/*
+
+    //Background Gradient Animation
+    /*
+        AnimationDrawable animationDrawable;
+        RelativeLayout relativeLayout;
+
         relativeLayout = findViewById(R.id.tela_splash);
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
   */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        //Start new Activity after 5 secs delayed
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -52,6 +52,7 @@ public class Unity extends Fragment {
             @Override
             public void onResponse(Call<List<UnityItem>> call, Response<List<UnityItem>> response) {
                 if (response.isSuccessful()){
+                    Toast.makeText(getContext(), "Funcionou nas Unidades", Toast.LENGTH_SHORT).show();
                     onResponseSuccess(response.body(),retrofitConfig.baseUrl);
                 }
                 else

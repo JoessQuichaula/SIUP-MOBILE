@@ -22,16 +22,18 @@ public class ServiceScreen2 extends Fragment {
     TextView txtDesc;
 
     int idUnity;
+    int idService;
 
-    public ServiceScreen2(int idUnity) {
+    public ServiceScreen2(int idUnity,int idService) {
         this.idUnity = idUnity;
+        this.idService = idService;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_service_screen3, container, false);
+        View view = inflater.inflate(R.layout.fragment_service_screen2, container, false);
         txtSubService = view.findViewById(R.id.txtSubService);
         txtDesc =  view.findViewById(R.id.txtDescService);
         txtSubService.setText(getArguments().getString("txtSubService"));
@@ -50,7 +52,7 @@ public class ServiceScreen2 extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.services_container,new ServiceScreen3(idUnity))
+                        .replace(R.id.services_container,new ServiceScreen3(idUnity,idService))
                         .addToBackStack(null)
                         .commit();
             }

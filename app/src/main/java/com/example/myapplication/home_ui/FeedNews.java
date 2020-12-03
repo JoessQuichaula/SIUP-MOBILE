@@ -61,6 +61,7 @@ public class FeedNews extends Fragment {
             @Override
             public void onResponse(Call<List<NewsItem>> call, Response<List<NewsItem>> response) {
                 if (response.isSuccessful()){
+                    Toast.makeText(getContext(), "Funcionou nas Notícias", Toast.LENGTH_SHORT).show();
                     onResponseSuccess(response.body(),retrofitConfig.baseUrl);
                 }
                 else

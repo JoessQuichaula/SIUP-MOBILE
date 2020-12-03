@@ -48,6 +48,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolde
                 .into(holder.imgNews);
         holder.txtNewsTitle.setText(Html.fromHtml(txtNewsTitle));
         holder.txtNewsBody.setText(Html.fromHtml(txtNewsBody));
+
+
     }
 
     @Override
