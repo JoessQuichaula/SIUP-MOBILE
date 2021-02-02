@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/introductionLayout"
+    >
+
+
+    <ImageView
+        android:id="@+id/apresentationImg"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:layout_height="200dp"
+        android:scaleType="centerInside"/>
+
+    <ImageView
+        android:id="@+id/imgWave"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="-14dp"
+        android:layout_below="@id/apresentationImg"
+        android:src="@drawable/wave_white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-6dp"
+        android:background="@color/white"
+        android:layout_below="@id/imgWave">
+
+        <TextView
+            android:id="@+id/apresentationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="#404040"
+            android:visibility="invisible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:text="apresentationTitle"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/apresentationTitle"
+            >
+
+            <TextView
+                android:id="@+id/apresentationBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="@string/introBody3"/>
+
+        </androidx.core.widget.NestedScrollView>
+
+        
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

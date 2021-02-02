@@ -2,11 +2,17 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:duration="5000"
+        android:duration="1000"
         android:drawable="@color/colorGradient1"/>
 
     <item
-        android:duration="5000"
+        android:duration="3000"
+        android:drawable="@color/colorGradient3"/>
+
+    <item
+        android:duration="3000"
         android:drawable="@color/colorGradient2"/>
+
+
 
 </animation-list>

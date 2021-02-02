@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:fillViewport="true"
-    tools:context=".registerScreens.Register_Screen2">
+    android:background="?attr/backgroundForViewGroups"
+    tools:context=".registerScreens.RegisterScreen2">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:layout_height="0dp">
 
     <ImageView
@@ -20,7 +22,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/reallogo2"/>
+        android:src="@drawable/reallogo2"
+        android:transitionName="logoTransition"
+        />
 
 
     <TextView
@@ -38,37 +42,36 @@
         android:gravity="center_horizontal" />
 
 
-    <EditText
-        android:id="@+id/edit_numberCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:paddingBottom="20dp"
-        android:layout_below="@id/txt_InsertNum"
-        android:backgroundTint="@color/colorGradient2"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="30dp"
-        android:textSize="20sp"
-        android:hint="-   -   -    -   -   -"
-        tools:targetApi="lollipop" />
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/editNumberCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_InsertNum"
+            android:layout_centerHorizontal="true"
+            android:textColor="#808080"
+            app:bar_active_color="@color/colorGradient1"
+            app:height="40dp"
+            app:width="40dp"
+            app:bar_enabled="true"
+            app:bar_height="2dp"
+            android:layout_marginBottom="30dp"
+            app:length="6"
+            app:otp_text_size="24dp"/>
+
 
     <RelativeLayout
         android:id="@+id/reeSend_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_below="@id/edit_numberCode"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_below="@id/editNumberCode"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp">
 
        <ImageButton
-           android:id="@+id/img_btn"
+           android:id="@+id/btnRestartCode"
            android:layout_width="30dp"
            android:layout_height="30dp"
            android:src="@drawable/sms_24px_2"
@@ -80,24 +83,24 @@
             android:layout_height="wrap_content"
             android:text="Reenviar SMS"
             android:layout_marginTop="3dp"
-            android:layout_toEndOf="@id/img_btn"
-            android:layout_toRightOf="@id/img_btn" />
+            android:layout_toEndOf="@id/btnRestartCode"
+             />
 
         <TextView
+            android:id="@+id/txtReSendTimeCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:59"
+            android:text="00:45"
             android:layout_marginTop="3dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
              />
 
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/img_btn"
+            android:layout_below="@id/btnRestartCode"
             android:background="@android:color/darker_gray"
             />
     </RelativeLayout>
@@ -127,11 +130,10 @@
             android:paddingBottom="20dp">
 
             <Button
-                android:id="@+id/btnMore"
+                android:id="@+id/btnBack2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:layout_marginLeft="30dp"
                 android:background="@drawable/btn_back_style"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
@@ -139,11 +141,10 @@
                 android:text="V O L T A R" />
 
             <Button
-                android:id="@+id/btn_next"
+                android:id="@+id/btnNext2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
-                android:layout_marginLeft="50dp"
                 android:background="@drawable/gradient_splash"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
@@ -156,4 +157,4 @@
 
     </RelativeLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

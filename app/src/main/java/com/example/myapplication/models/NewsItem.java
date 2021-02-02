@@ -15,11 +15,14 @@ public class NewsItem {
 
     private String txtNewsTime;
 
-    public NewsItem(String imgNews, String txtNewsTitle, String txtNewsBody, String txtNewsTime) {
+    private String newsLink;
+
+    public NewsItem(String imgNews, String txtNewsTitle, String txtNewsBody, String txtNewsTime,String newsLink) {
         this.imgNews = imgNews;
         this.txtNewsTitle = txtNewsTitle;
         this.txtNewsBody = txtNewsBody;
         this.txtNewsTime = txtNewsTime;
+        this.newsLink = newsLink;
     }
 
     public String getImgNews() {
@@ -36,5 +39,9 @@ public class NewsItem {
 
     public String getTxtNewsTime() {
         return txtNewsTime;
+    }
+
+    public String getNewsLink() {
+        return newsLink;
     }
 }

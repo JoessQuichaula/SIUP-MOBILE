@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppColors">
+        <attr name="bottomNavBarBG" format="color"/>
+        <attr name="textColorForNewsItem" format="color"/>
+        <attr name="backgroundForViewGroups" format="color"/>
+        <attr name="colorTitleToolbar" format="color"/>
+        <attr name="colorBackgroundItemNews" format="color"/>
+        <attr name="colorBottomNavItem" format="color"/>
+        <attr name="colorDocumentItem" format="color"/>
+        <attr name="colorActivitiesLineView" format="color"/>
+    </declare-styleable>
+</resources>

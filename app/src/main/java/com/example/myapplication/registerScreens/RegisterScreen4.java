@@ -1,14 +1,10 @@
 package com.example.myapplication.registerScreens;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.myapplication.MainScreen;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.StadeAdapter;
 import com.example.myapplication.models.CountyItem;
@@ -16,7 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class Register_Screen4 extends AppCompatActivity {
+public class RegisterScreen4 extends AppCompatActivity {
 
     RecyclerView recyclerView;
     StadeAdapter stadeAdapter;
@@ -26,8 +22,9 @@ public class Register_Screen4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register__screen4);
+        setContentView(R.layout.activity_register_screen4);
 
+        /*
         countyItems = new ArrayList<>();
         countyItems.add(new CountyItem("LUANDA"));
         countyItems.add(new CountyItem("VIANA"));
@@ -54,6 +51,8 @@ public class Register_Screen4 extends AppCompatActivity {
             }
         });
 
+
+         */
 
     }
 }

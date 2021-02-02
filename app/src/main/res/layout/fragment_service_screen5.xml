@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     tools:context=".home_ui.services.ServiceScreen5">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDocumentsStats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="60dp"
+            tools:listitem="@layout/item_stade"/>
 
         <Button
             android:id="@+id/btnSend"
@@ -17,13 +19,14 @@
             android:layout_height="45dp"
             android:text="Enviar"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:background="@drawable/gradient_center"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
+
             />
 
-    </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>

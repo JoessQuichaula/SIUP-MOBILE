@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/backgroundForViewGroups"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".registerScreens.RegisterScreen3">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/txt_personalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dados Pessoais"
+        android:textColor="@color/colorGradient2"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:backgroundTint="@color/register_screen_edit_colors"
+        android:layout_below="@id/txt_personalData"
+        android:hint="Nome Completo"
+        android:inputType="textCapCharacters"
+        android:maxLength="100"
+        android:drawablePadding="15dp"
+        android:drawableStart="@drawable/ic_baseline_account_circle_24"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_name"
+        android:paddingBottom="20dp"
+        android:drawablePadding="15dp"
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:hint="Email(Opcional)"
+        android:backgroundTint="@color/register_screen_edit_colors"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"/>
+
+    <EditText
+        android:id="@+id/editIdentityPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_baseline_assignment_ind_24"
+        android:paddingBottom="20dp"
+        android:textColor="#606060"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="20sp"
+        android:inputType="textCapCharacters"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:backgroundTint="@color/register_screen_edit_colors"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="20dp"
+        android:maxLength="14"
+        android:layout_below="@id/edit_email"
+        android:hint="Nº: Bilhete de Identidade"
+        />
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="15dp"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:paddingBottom="20dp"
+        android:textColor="#606060"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:backgroundTint="@color/register_screen_edit_colors"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/editIdentityPass"
+        android:hint="Palavra-Passe"
+        />
+    <TextView
+        android:id="@+id/txtDocument"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bilhete de Identidade"
+        android:textSize="20sp"
+        android:layout_below="@id/editPassword"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:id="@+id/documentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDocument"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editDocumentPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:backgroundTint="#404040"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/btnDocumentSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Browse"
+            android:textColor="@color/black"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/backNextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        android:layout_below="@id/documentLayout">
+
+        <Button
+            android:id="@+id/btnBack3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:background="@drawable/btn_back_style"
+            android:text="V O L T A R"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="30dp" />
+
+        <Button
+            android:id="@+id/btnNext3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:layout_marginStart="35dp"
+            android:text="C O N C L U I R"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/gradient_splash"
+             />
+
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.MainScreen;
 import com.example.myapplication.R;
 import com.example.myapplication.RetrofitConfig;
 import com.example.myapplication.models.CountyItem;
@@ -115,6 +116,7 @@ public class ServiceScreen3 extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -129,9 +131,8 @@ public class ServiceScreen3 extends Fragment {
 
     //Fetch the Data from Server To Google Maps
     private void retrofitFetch(){
-        retrofitConfig = new RetrofitConfig();
-        retrofitConfig.initRetrofit();
-        Call<List<DivisionItem>> call = retrofitConfig.callDivision(idUnity);
+        retrofitConfig = ((MainScreen)getActivity()).retrofitConfig;
+        Call<List<DivisionItem>> call = retrofitConfig.callDivisions(idUnity);
         call.enqueue(new Callback<List<DivisionItem>>(){
             @Override
             public void onResponse(Call<List<DivisionItem>> call, Response<List<DivisionItem>> response) {
@@ -139,11 +140,11 @@ public class ServiceScreen3 extends Fragment {
                     onResponseSuccess(response.body(),retrofitConfig.baseUrl);
                 }
                 else
-                    Toast.makeText(getContext(), "Response is not Sucessful", Toast.LENGTH_SHORT).show();
+                    retrofitConfig.failureThread(getFragmentManager(),R.id.services_container);
             }
             @Override
             public void onFailure(Call<List<DivisionItem>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getCause().toString(), Toast.LENGTH_SHORT).show();
+                retrofitConfig.failureThread(getFragmentManager(),R.id.services_container);
             }
         });
     }
@@ -207,10 +208,11 @@ public class ServiceScreen3 extends Fragment {
                                             btnDialogAdvance.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    Toast.makeText(getContext(), "IamGood", Toast.LENGTH_SHORT).show();
                                                     getFragmentManager().beginTransaction()
-                                                          .replace(R.id.services_container,new ServiceScreen4(idDivision,idService))
-                                                          .commit();
+                                                            .replace(R.id.services_container,new ServiceScreen4(idDivision,idService),
+                                                                    "serviceScreen4")
+                                                            .addToBackStack(null)
+                                                            .commit();
                                                     bottomSheetDialog.dismiss();
                                                 }
                                             });

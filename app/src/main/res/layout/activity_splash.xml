@@ -3,37 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tela_splash"
-    android:background="@android:color/white"
+    android:theme="@style/AppTheme"
+    android:background="?attr/backgroundForViewGroups"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen">
 
 
-    <ImageView
+    <zone.com.lightsweep.ShineImageView
         android:id="@+id/app_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
-        android:background="@drawable/reallogo2"/>
+        android:src="@drawable/reallogo2"/>
+
+    <zone.com.lightsweep.ShineImageView
+        android:id="@+id/imgAngolaFlag"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/gov_angola_min2"
+        android:layout_above="@id/txtMin"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/txt_appName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sistema Integrado das Unidade Públicas"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:layout_above="@id/txtMin"
-        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginBottom="10dp"
         />
 
+
     <TextView
         android:id="@+id/txtMin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ministério da Justiça e dos Direitos Humanso"
+        android:text="Ministério da Justiça e dos Direitos Humanos"
         android:textAlignment="center"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"

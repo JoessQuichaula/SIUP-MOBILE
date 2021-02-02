@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myapplication.home_ui.FeedNews;
 import com.example.myapplication.home_ui.Repartition;
+
+import java.util.ArrayList;
 
 public class TabNavPageAdapter extends FragmentStatePagerAdapter {
 
-
-    public TabNavPageAdapter(@NonNull FragmentManager fm) {
+    private ArrayList<Fragment> fragments;
+    public TabNavPageAdapter(@NonNull FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
+        this.fragments = fragments;
     }
 
     @NonNull
@@ -22,11 +24,11 @@ public class TabNavPageAdapter extends FragmentStatePagerAdapter {
 
         switch(position){
             case 0:
-               return new FeedNews();
+               return fragments.get(position);
             case 1:
-                return new ServicesContainer();
+                return fragments.get(position);
             case 2:
-                return new Repartition();
+                return fragments.get(position);
         }
 
         return new Fragment();
@@ -34,7 +36,7 @@ public class TabNavPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return fragments.size();
     }
 
     private String[] tabTitles = new String[]{"Feed News", "Serviços", "Repartição"};

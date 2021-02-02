@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    
+
     <color name="colorPrimary">#FD6721</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#FD6721</color>
 
+    <color name="darkTheme">#242424</color>
+    <color name="darkThemeSoft">#303030</color>
+    <color name="textColorForNewsItem">#808080</color>
     <color name="white">#ffffff</color>
+
     <color name="gray_back">#EEEEEE</color>
 
     <color name="colorGradient1">#FD9941</color>
+    <color name="colorGradient3">#FD7822</color>
     <color name="colorGradient2">#FD6721</color>
 
+
+    <color name="colorApp">#FD6721</color>
 
 </resources>

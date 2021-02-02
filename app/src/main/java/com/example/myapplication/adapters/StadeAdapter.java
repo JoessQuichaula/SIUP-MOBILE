@@ -14,22 +14,21 @@ import com.example.myapplication.models.CountyItem;
 
 import java.util.ArrayList;
 
-public class StadeAdapter extends RecyclerView.Adapter<StadeAdapter.StadeViewholder> {
+public class StadeAdapter {
+
+   /*
 
     private ArrayList<CountyItem> countyItems;
     int last_position = 0;
-
     public StadeAdapter(ArrayList<CountyItem> countyItems) {
         this.countyItems = countyItems;
     }
-
     @NonNull
     @Override
     public StadeViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stade,parent,false);
         return new StadeViewholder(view);
     }
-
     ImageView imageView;
     Boolean jafui;
     @Override
@@ -59,12 +58,10 @@ public class StadeAdapter extends RecyclerView.Adapter<StadeAdapter.StadeViewhol
             });
         }
     }
-
     @Override
     public int getItemCount() {
         return countyItems.size();
     }
-
     public static class StadeViewholder extends RecyclerView.ViewHolder {
 
         private TextView txt_stade;
@@ -77,5 +74,7 @@ public class StadeAdapter extends RecyclerView.Adapter<StadeAdapter.StadeViewhol
         }
     }
 
+
+    */
 }
 

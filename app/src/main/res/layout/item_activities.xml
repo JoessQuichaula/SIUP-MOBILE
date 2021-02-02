@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingBottom="20dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtActivityDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:text="20/01/2021"
+        />
+
+    <TextView
+        android:id="@+id/txtActivityService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_toEndOf="@id/txtActivityDate"
+        android:textColor="?attr/colorTitleToolbar"
+        android:text="Registro Criminal"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/txtActivityDate"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtActivityStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Em Andamento"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:background="@drawable/background_activity_status"
+            />
+
+        <TextView
+            android:id="@+id/txtActivityDivision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/txtActivityStatus"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:text="Belas - Posto Fixo - R-340"
+            />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@id/row1"
+        android:background="?attr/colorActivitiesLineView"/>
+
+</RelativeLayout>

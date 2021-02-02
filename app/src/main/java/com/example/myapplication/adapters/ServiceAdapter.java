@@ -29,19 +29,17 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     private List<ServiceItem> serviceItems;
     private Context context;
-    public static String txtSubService = "txtSubService";
-    public static String txtDesc = "txtDesc";
     private FragmentManager fragmentManager;
-    private Activity mView;
+    private Activity activityInstance;
     private String baseUrl;
     int idUnity;
     int idService;
 
-    public ServiceAdapter(List<ServiceItem> serviceItems, Context context, FragmentManager fragmentManager, Activity mView, String baseUrl,int idUnity) {
+    public ServiceAdapter(List<ServiceItem> serviceItems, Context context, FragmentManager fragmentManager, Activity activityInstance, String baseUrl, int idUnity) {
         this.serviceItems = serviceItems;
         this.context = context;
         this.fragmentManager = fragmentManager;
-        this.mView = mView;
+        this.activityInstance = activityInstance;
         this.baseUrl = baseUrl;
         this.idUnity = idUnity;
     }
@@ -59,38 +57,51 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     public void onBindViewHolder(@NonNull final ServiceViewHolder holder, int position) {
 
         final ServiceItem serviceItem = serviceItems.get(position);
+
         CharSequence txtService = Html.fromHtml(serviceItem.getTxtService());
         CharSequence txtDescService = Html.fromHtml(serviceItem.getTxtDescService());
         String imgService = serviceItem.getImgService().replace("\\","/");
+        String FullImgPath = baseUrl+"/storage/"+imgService;
+
         Glide
                 .with(context)
-                .load(baseUrl+"/storage/"+ imgService)
+                .load(FullImgPath)
                 .into(holder.imgService);
 
         holder.txtService.setText(txtService);
-        holder.txtDescService.setText(txtDescService);
+        if (txtDescService.length()>100){
+            holder.txtDescService.setText(txtDescService.subSequence(0,100));
+            holder.txtDescService.append("...");
+        }
+        else{
+            holder.txtDescService.setText(txtDescService);
+        }
+
+
+
         holder.btnEnter.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 idService = serviceItem.getIdService();
-                String v1 = holder.txtService.getText().toString();
-                String v2 = holder.txtDescService.getText().toString();
-                startNewService(v1,v2);
+                CharSequence v1 = txtService;
+                CharSequence v2 = txtDescService;
+                startNewService(v1,v2,FullImgPath);
             }
         });
 
     }
 
-    private void startNewService(String v1, String v2){
+    private void startNewService(CharSequence v1, CharSequence v2,String v3){
         Bundle bundle = new Bundle();
-        bundle.putString(txtSubService,v1);
-        bundle.putString(txtDesc,v2);
-        //bundle.putString("imgService",);
-        TabLayout homeTab = mView.findViewById(R.id.home_navbar);;
-        ImageView imgLogo = mView.findViewById(R.id.app_logo);
-        imgLogo.setVisibility(View.GONE);
+        bundle.putCharSequence("txtService",v1);
+        bundle.putCharSequence("txtDesc",v2);
+        bundle.putString("FullImgPath",v3);
+        TabLayout homeTab = activityInstance.findViewById(R.id.home_navbar);;
+        ImageView imgLogo = activityInstance.findViewById(R.id.app_logo);
+        //imgLogo.setVisibility(View.GONE);
         homeTab.setVisibility(View.GONE);
+
         ServiceScreen2 serviceScreen2 = new ServiceScreen2(idUnity,idService);
         serviceScreen2.setArguments(bundle);
 

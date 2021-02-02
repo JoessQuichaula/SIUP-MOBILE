@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -8,26 +9,25 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/reallogo2white"
+        android:icon="@drawable/reallogo2"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/reallogo2white"
-        android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
-        android:theme="@style/AppTheme">
+        android:roundIcon="@drawable/reallogo2"
+        android:supportsRtl="true"
+        android:theme="@style/WhiteTheme">
+        <activity android:name=".LoginScreen">
 
+        </activity>
         <activity android:name=".Test">
 
         </activity>
-        <activity android:name=".ApresentationScreen">
-
-        </activity>
+        <activity android:name=".IntroductionScreen"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,19 +43,33 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainScreen" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainScreen"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".registerScreens.RegisterScreen4"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".registerScreens.RegisterScreen3"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".registerScreens.RegisterScreen2"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".registerScreens.RegisterScreen"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            ></activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".registerScreens.Register_Screen4" />
-        <activity android:name=".registerScreens.Register_Screen3" />
-        <activity android:name=".registerScreens.Register_Screen2" />
-        <activity android:name=".registerScreens.Register_Screen" />
-        <activity android:name=".SplashScreen">
-
         </activity>
     </application>
 

@@ -2,44 +2,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="0dp">
+    android:layout_marginTop="0dp"
+    android:paddingBottom="30dp">
 
-    <!--
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        />
--->
     <TextView
-        android:id="@+id/txt_stade"
+        android:id="@+id/txtDocument"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="50dp"
-        android:text="TESTAMENT"
+        android:layout_marginStart="20dp"
+        android:text="txtDocument"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:layout_marginLeft="50dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="40dp"/>
 
-    <ImageView
-        android:id="@+id/img_check"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="30dp"
-        android:src="@drawable/confirm_buton"
-        android:visibility="invisible"
-        android:layout_alignParentRight="true" />
 
-    <View
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_below="@id/txt_stade"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDocument">
+        <TableRow>
+            <TextView
+                android:text="Ficheiro"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"
+                android:layout_weight="2"
+
+                />
+            <TextView
+                android:text="Tamanho"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"
+                android:layout_weight="4"
+
+                />
+            <TextView
+                android:text="Tipo"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3"
+
+                />
+        </TableRow>
+        <TableRow
+            >
+            <TextView
+                android:id="@+id/txtFileName"
+                android:text="Comprovativo23898"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_ui"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_weight="2"
+
+
+                />
+            <TextView
+                android:id="@+id/txtFileSize"
+                android:text="Tamanho"
+                android:background="@drawable/border_ui"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_weight="4"
+
+                />
+            <TextView
+                android:id="@+id/txtFileExt"
+                android:text="Tipo"
+                android:background="@drawable/border_ui"
+                android:layout_marginTop="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="3"
+
+                />
+        </TableRow>
+
+    </TableLayout>
+
+
+
 
 
 

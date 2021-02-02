@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.myapplication.R;
 import com.example.myapplication.models.DocumentItem;
 
@@ -49,14 +51,15 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @Override
     public void onBindViewHolder(@NonNull DocumentViewHolder holder, final int position) {
         final DocumentItem documentItem = documentItems.get(position);
-
+        if (documentItem.getIdDocument()==5){
+            String val = "*obs: a data do comprovativo tem que ser a mesma da data do envio dos outros documentos";
+            AwesomeValidation awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
+            awesomeValidation.setContext(context);
+            awesomeValidation.addValidation(holder.editDocumentPath,"info",val);
+            awesomeValidation.validate();
+        }
         holder.txtDocument.setText(documentItem.getTxtDocument());
-        holder.btnDocumentSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileManager(position);
-            }
-        });
+        holder.btnDocumentSearch.setOnClickListener(v -> openFileManager(position));
     }
     @Override
     public int getItemCount() {
@@ -69,8 +72,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     private void openFileManager(int itemPosition){
 
         saveItemPosition(itemPosition);
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");
         fragment.startActivityForResult(intent,102);
         //activity.startActivityForResult(intent,102);

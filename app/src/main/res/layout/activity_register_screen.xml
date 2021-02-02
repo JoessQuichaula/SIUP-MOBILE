@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:fillViewport="true"
-    tools:context=".registerScreens.Register_Screen">
+    android:background="?attr/backgroundForViewGroups"
+    tools:context=".registerScreens.RegisterScreen">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:layout_height="0dp">
 
     <ImageView
@@ -19,10 +21,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/reallogo2"/>
+        android:src="@drawable/reallogo2"
+        android:transitionName="logoTransition"
+        />
 
     <TextView
-        android:id="@+id/txt_InsertNum"
+        android:id="@+id/txtInsertNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -35,57 +39,66 @@
         android:layout_below="@id/app_logo"
         android:gravity="center_horizontal" />
 
-    <LinearLayout
-        android:id="@+id/num_layout"
+
+
+
+
+        <LinearLayout
+        android:id="@+id/phoneNumberLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="150dp"
-        android:layout_below="@id/txt_InsertNum">
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/txtInsertNum">
         <EditText
-            android:id="@+id/edit_postalCode"
+            android:id="@+id/editPostalCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:layout_marginLeft="10dp"
             android:paddingBottom="20dp"
             android:drawableEnd="@drawable/angolaflagicon16"
             android:drawablePadding="5dp"
             android:enabled="false"
             android:textSize="20sp"
-
             android:hint="+244"
             />
         <EditText
-            android:id="@+id/edit_number"
+            android:id="@+id/editPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textAlignment="center"
-            android:phoneNumber="true"
+            android:inputType="number"
             android:paddingBottom="20dp"
-            android:backgroundTint="@color/colorGradient2"
+            android:drawablePadding="12dp"
+            android:drawableStart="@drawable/ic_baseline_contact_phone_24"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
             android:textSize="20sp"
+            android:maxLength="10"
+            android:textColor="#606060"
+            android:backgroundTint="@color/register_screen_edit_colors"
             android:hint="EX: 9XX-XXX-XXX"
             />
 
     </LinearLayout>
 
-    <LinearLayout
+
+
+
+        <LinearLayout
+        android:id="@+id/backNextLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_below="@id/num_layout">
+        android:paddingBottom="30dp"
+        android:layout_below="@id/phoneNumberLayout">
 
         <Button
-            android:id="@+id/btnMore"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
@@ -94,10 +107,10 @@
             android:background="@drawable/btn_back_style"
             android:text="V O L T A R"
             android:paddingRight="10dp"
-            android:layout_marginLeft="30dp" />
+             />
 
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="20dp"
@@ -107,10 +120,39 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:background="@drawable/gradient_splash"
-            android:paddingRight="10dp"
-            android:layout_marginLeft="50dp" />
+
+
+             />
 
     </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_below="@id/backNextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txtAlreadyHaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1"
+                android:gravity="end"
+
+                android:text="Já Associou a sua Conta?"/>
+
+            <TextView
+                android:id="@+id/btnEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrar"
+                android:layout_weight="1.3"
+                android:textStyle="bold"
+                android:textColor="@color/colorApp"/>
+        </LinearLayout>
+
     </RelativeLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

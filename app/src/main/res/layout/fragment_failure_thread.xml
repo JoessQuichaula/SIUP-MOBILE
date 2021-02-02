@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FailureThread">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imgFailure"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/network_cloud_failed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        />
+    <TextView
+        android:id="@+id/txtFailure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Sem Resultados"
+        android:textAlignment="center"
+        android:textColor="#606060"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:layout_below="@id/imgFailure"/>
+    <TextView
+        android:id="@+id/txtFailureBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PorFavor Tente Novamente..."
+        android:textAlignment="center"
+        android:textColor="#606060"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp"
+        android:layout_below="@id/txtFailure"/>
+    <ImageView
+        android:id="@+id/btnReset"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/reset2"
+        android:layout_below="@id/txtFailureBody"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        />
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

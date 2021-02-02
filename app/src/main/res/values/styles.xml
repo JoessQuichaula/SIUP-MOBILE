@@ -7,11 +7,63 @@
         <item name="colorPrimaryDark">@color/colorGradient2</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+
         <item name="material_dialog_background">@color/white</item>
         <item name="material_dialog_message_text_color">#5F5F5F</item>
+    </style>
+
+
+    <style name="WhiteTheme" parent="@style/AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="tabTextColor">@color/black</item>
+        <item name="backgroundForViewGroups">@color/white</item>
+        <item name="textColorForNewsItem">@color/textColorForNewsItem</item>
+        <item name="colorTitleToolbar">@color/black</item>
+        <item name="colorBackgroundItemNews">@color/white</item>
+        <item name="bottomNavBarBG">@color/white</item>
+        <item name="colorDocumentItem">@android:color/darker_gray</item>
+        <item name="actionMenuTextColor">@color/colorApp</item>
+        <item name="colorBottomNavItem">?attr/colorControlNormal</item>
+        <item name="colorActivitiesLineView">#808080</item>
+        <item name="android:windowContentTransitions">true</item>
 
     </style>
 
+    <style name="DarkTheme" parent="@style/AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorDocumentItem">@color/gray_back</item>
+        <item name="android:textColor">@color/gray_back</item>
+        <item name="colorTitleToolbar">@color/white</item>
+        <item name="colorBackgroundItemNews">@color/darkTheme</item>
+        <item name="tabBackground">@color/darkTheme</item>
+        <item name="tabTextColor">@color/gray_back</item>
+        <item name="colorActivitiesLineView">@color/gray_back</item>
+        <item name="actionMenuTextColor">@color/colorApp</item>
+        <item name="backgroundForViewGroups">@color/darkThemeSoft</item>
+        <item name="textColorForNewsItem">@color/white</item>
+        <item name="bottomNavBarBG">@color/darkTheme</item>
+        <item name="colorBottomNavItem">@color/gray_back</item>
+
+    </style>
+
+
+    <style name="MyApp.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="MainActionBar.Popup" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">?attr/textColorForNewsItem</item>
+        <item name="android:background">?attr/backgroundForViewGroups</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:background">?attr/backgroundForViewGroups</item>
+    </style>
 
     <style name="BottomSheetDialogTheme." parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
@@ -21,8 +73,12 @@
         <item name="background">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabTextColor">@color/white</item>
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextColor">?tabTextColor</item>
+        <item name="tabSelectedTextColor">@color/colorApp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">?attr/bottomNavBarBG</item>
+        <item name="android:elevation">6dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

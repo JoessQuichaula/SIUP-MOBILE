@@ -9,13 +9,15 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-class FeedNews2 extends Fragment {
+import com.example.myapplication.R;
+
+class Feed2 extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed_news2, container, false);
+        return inflater.inflate(R.layout.fragment_feednews2, container, false);
     }
 }

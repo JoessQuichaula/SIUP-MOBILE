@@ -4,7 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ApresentationScreen">
+    android:id="@+id/introLayout"
+    android:background="@drawable/gradient_anim"
+    tools:context=".IntroductionScreen">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabIndicator"
+        app:tabBackground="@drawable/indicator_selector"
+        android:layout_marginStart="20dp"
+        android:layout_width="50dp"
+        app:tabIndicatorColor="@color/transparent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"/>
+
+
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="Avançar"
+        android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="13dp"
+        android:elevation="12dp"
+        android:layout_marginEnd="10dp"
+        />
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@id/tabIndicator"
+        android:id="@+id/introductionViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/gradient_splash"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:layout_marginBottom="45dp"
+        android:layout_alignParentBottom="true"
+        android:text="Abrir Conta"/>
+    <TextView
+        android:id="@+id/txtAlreadyHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:text="Já Associou a sua Conta?"/>
+
+    <TextView
+        android:id="@+id/btnEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entrar"
+        android:visibility="invisible"
+        android:textColor="@color/colorApp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_toEndOf="@id/txtAlreadyHaveAccount"/>
+
+
+
+
 
 
 </RelativeLayout>

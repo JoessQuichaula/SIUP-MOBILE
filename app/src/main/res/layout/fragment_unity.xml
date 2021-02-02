@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/servicesContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/tools">
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!--
-        <EditText
-            android:id="@+id/edit_search"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:hint="PESQUISAR"/>
--->
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_service"
-            android:layout_width="match_parent"
+            android:id="@+id/recyclerAnnounce"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tool:listitem="@layout/item_unity"/>
+            android:elevation="25dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tool:listitem="@layout/item_announce"
+             />
 
+        <!--
+        <androidx.cardview.widget.CardView
+            android:id="@+id/announce"
+            app:cardCornerRadius="6dp"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
 
-
-
-<!--
-    <TextView
-        android:id="@+id/txt_tendency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TÊNDENCIAS"
-        android:textColor="@color/colorGradient2"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:layout_below="@id/edit_search"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="30dp"
-        />
+        </androidx.cardview.widget.CardView>
 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recyclerAnnounce"
+                tool:listitem="@layout/item_unity"/>
 
+    </RelativeLayout>
 
-
-
-
-</FrameLayout>
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

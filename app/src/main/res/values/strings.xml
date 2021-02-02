@@ -105,4 +105,18 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+
+    <string name="introTitle1">Seja Bem Vindo ao SIUP</string>
+    <string name="introBody1">Uma Nova Aposta, no território nacional
+        que poderá facilitar o processo do tratamento de Documentos.</string>
+
+    <string name="introTitle2">Trate dos seus Documentos num clique</string>
+    <string name="introBody2">O SIUP está cheio de servicos e uma repleta base de dados de informações
+        que facilitarão o entendimento dos processos da aquisição de servicos</string>
+
+    <string name="introTitle3">Operações de Agendamento</string>
+    <string name="introBody3">Poderá também agendar as suas demandas sem
+        precisar sair de casa,</string>
+    <string name="later"> faça tudo pelo telemóvel ou pelo nosso website - www.siup.co.ao</string>
 </resources>
