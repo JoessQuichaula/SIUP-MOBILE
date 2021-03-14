@@ -45,96 +45,50 @@ public class FeedNews2 extends Fragment {
         return inflater.inflate(R.layout.fragment_feednews2, container, false);
     }
 
-    TextView txtNewsTitle;
+    String newsBody;
+    CharSequence newsTitle;
+    public FeedNews2(String newsBody,CharSequence newsTitle){
+        this.newsBody = newsBody;
+        this.newsTitle = newsTitle;
+    }
+
     TextView txtNewsBody;
-    ImageView imgNews;
-    WebView webView;
-    String fullUrl;
-    String novo="";
     Skeleton skeleton;
     NestedScrollView nestedScrollView;
+    MainScreen mainScreen;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainScreen) getActivity()).appBarLayout.setExpanded(true);
-        ((MainScreen) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainScreen) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((MainScreen) getActivity()).toolbar.setTitle(getArguments().getCharSequence("txtNewsTitle"));
+        mainScreen = ((MainScreen)getActivity());
+        mainScreen.appBarLayout.setExpanded(true);
+        mainScreen.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mainScreen.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mainScreen.toolbar.setTitle(newsTitle);
+        mainScreen.appBarLayout.setElevation(6);
+        mainScreen.appLogo.setVisibility(View.GONE);
         nestedScrollView = view.findViewById(R.id.scrollLayout);
 
-
-        //txtNewsTitle = view.findViewById(R.id.txtNewsTitle);
         txtNewsBody = view.findViewById(R.id.txtNewsBody);
-        //this.imgNews = view.findViewById(R.id.imgNews);
-        //String imgNews = getArguments().getString("imgNews");
-        //txtNewsTitle.setText(getArguments().getCharSequence("txtNewsTitle"));
         skeleton = view.findViewById(R.id.skeleton);
         skeleton.showSkeleton();
-        /*
-        DynamicImageGetter.with(getContext())
-                .load(getArguments().getString("txtNewsBody"))
-                .mode(DynamicImageGetter.FULL_WIDTH)
-                .into(txtNewsBody);
-        //txtNewsBody.setText(getArguments().getCharSequence("txtNewsBody"));
 
-        Glide.with(getContext())
-                .load(imgNews)
-                .into(this.imgNews);
+        if (getView()!=null){
+            DynamicImageGetter.with(getContext())
+                    .load(newsBody)
+                    .mode(DynamicImageGetter.FULL_WIDTH)
+                    .into(txtNewsBody);
+            skeleton.showOriginal();
+        }
 
-         */
-
-        fullUrl = "https://jornaldeangola.ao"+(getArguments().getString("newsLink"));
-        //webView = view.findViewById(R.id.webView);
-        //webView.setWebViewClient(new WebViewClient());
-        //webView.getSettings().setJavaScriptEnabled(true);
-        new MyTask().execute();
-        //webView.loadUrl(fullUrl);
-        //webView.loadData(getArguments().getString("txtNewsBody"),"text/html",null);
-
-
-        HomeFragment homeFragment = (HomeFragment)getActivity()
+        HomeFragment homeFragment =
+                (HomeFragment)getActivity()
                 .getSupportFragmentManager()
                 .findFragmentByTag("homeFragment");
+
+
         homeFragment.LockViewPagerSwipe();
 
     }
 
-    private class MyTask extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String title ="";
-            Document doc;
-            try {
-                doc = Jsoup.connect(fullUrl).get();
-                Element element = doc.getElementsByClass("detalhe-noticia").get(0);
-                title = element.toString();
-                novo = element.toString();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return title;
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            //if you had a ui element, you could display the title
-            //Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
-            //webView.loadData(result,"text/html",null);
-            result = result.replace("/fotos","https://jornaldeangola.ao/fotos");
-            //txtNewsBody.setText(txtNewsBody.getText().toString().replace());
-            if (txtNewsBody!=null){
-                DynamicImageGetter.with(getContext())
-                        .load(result)
-                        .mode(DynamicImageGetter.FULL_WIDTH)
-                        .into(txtNewsBody);
-                skeleton.showOriginal();
-            }
-            else
-                Toast.makeText(getContext(), "é null", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }

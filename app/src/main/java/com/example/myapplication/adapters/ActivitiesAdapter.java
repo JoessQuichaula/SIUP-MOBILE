@@ -69,6 +69,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.Ac
         holder.itemView.setOnClickListener(v -> {
             fragmentManager
                     .beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.activitiesContainer,new ActivitiesScreen2(requestItem))
                     .commit();
         });

@@ -24,8 +24,10 @@ public class DivisionItem {
     private double lat;
     @SerializedName("longitude")
     private double lng;
+    @SerializedName("estado_id")
+    private int idStatus;
 
-    public DivisionItem(int id, String openTime, String closeTime, String address, int idUnity,int idCounty, int idType, String imgDivision, double lat, double lng) {
+    public DivisionItem(int id, String openTime, String closeTime, String address, int idUnity,int idCounty, int idType, String imgDivision, double lat, double lng,int idStatus) {
         this.id = id;
         this.openTime = openTime;
         this.closeTime = closeTime;
@@ -36,6 +38,7 @@ public class DivisionItem {
         this.imgDivision = imgDivision;
         this.lat = lat;
         this.lng = lng;
+        this.idStatus =idStatus;
     }
 
 
@@ -76,5 +79,9 @@ public class DivisionItem {
 
     public double getLng() {
         return lng;
+    }
+
+    public int getIdStatus() {
+        return idStatus;
     }
 }

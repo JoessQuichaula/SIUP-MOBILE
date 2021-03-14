@@ -1,4 +1,11 @@
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+}
+
 apply plugin: 'com.android.application'
+
+
+
 
 android {
     compileSdkVersion 29
@@ -21,6 +28,8 @@ android {
         }
     }
 
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,6 +50,16 @@ dependencies {
     //lib for Json Utils tools
     implementation 'com.google.code.gson:gson:2.8.6'
 
+
+    //lib to use QR CODE Scan
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+
+    //Lib to make push Notification
+    implementation ('com.onesignal:OneSignal:4.1.0'){
+        exclude group:'com.google.guava'
+    }
+
+    //lib to use shine effects in images in SplashScreen
     implementation 'com.github.luhaoaimama1:Shine:1.07'
 
     //Retrofit Libs to Request HTTP methods
@@ -85,6 +104,7 @@ dependencies {
     //libs that allows the use of Google Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
 
     //android default libs
     implementation 'androidx.appcompat:appcompat:1.1.0'

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,15 +27,19 @@ import android.widget.Toast;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.myapplication.ApiInterface;
+import com.example.myapplication.Capture;
 import com.example.myapplication.FileUtils;
 import com.example.myapplication.MainScreen;
 import com.example.myapplication.R;
 import com.example.myapplication.SplashScreen;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.io.File;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -45,6 +50,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import zone.com.lightsweep.ShineAnimator;
+import zone.com.lightsweep.ShineImageView;
 
 public class RegisterScreen3 extends AppCompatActivity {
 
@@ -57,7 +64,9 @@ public class RegisterScreen3 extends AppCompatActivity {
     private SharedPreferences appDataSaver;
     Button btnBack;
     Button btnNext;
+    Button btnScan;
     Uri lastUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,9 @@ public class RegisterScreen3 extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack3);
         btnNext = findViewById(R.id.btnNext3);
+        btnScan = findViewById(R.id.btnScan);
+
+
 
         btnDocumentSearch.setOnClickListener(v->{
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -83,23 +95,50 @@ public class RegisterScreen3 extends AppCompatActivity {
 
         nextBack();
 
+        btnScan.setOnClickListener(v->{
+            IntentIntegrator intentIntegrator = new IntentIntegrator(RegisterScreen3.this);
+            intentIntegrator.setPrompt("Para usar o Flash use a tecla para aumentar o volume");
+            intentIntegrator.setBeepEnabled(true);
+            intentIntegrator.setOrientationLocked(true);
+            intentIntegrator.setCaptureActivity(Capture.class);
+            intentIntegrator.initiateScan();
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+
+        if (intentResult.getContents() != null){
+
+            String credentials[] = intentResult.getContents().split("\\s+");
+
+            String regexlast = "^[0-9]{9}[A-Z]{2}[0-9]{3}$";
+            final Pattern pattern = Pattern.compile(regexlast);
+            String fullName ="";
+            for (String credential:credentials) {
+                if (pattern.matcher(credential).matches()) {
+                    editIdentityPass.setText(credential);
+                    editName.setText(fullName);
+                }
+                else {
+                    fullName += credential+" ";
+                }
+            }
+
+        }else {
+            Toast.makeText(this, "Leitura do Códido QR Falhou, tente novamente", Toast.LENGTH_SHORT).show();
+        }
+
         switch (requestCode){
             case 102:
                 if (resultCode == RESULT_OK && data != null && data.getData() != null){
                     Uri uri = data.getData();
                     if (lastUri != null && lastUri.equals(uri)) {
                         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"O Documento escolhido já foi disposto",Snackbar.LENGTH_INDEFINITE);
-                        snackbar.setAction("Fechar", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                snackbar.dismiss();
-                            }
-                        }).show();
+                        snackbar.setAction("Fechar", v -> snackbar.dismiss()).show();
                     }
                     else{
                         try {
@@ -129,32 +168,19 @@ public class RegisterScreen3 extends AppCompatActivity {
                 }
                 break;
                 }
-
-
     }
 
 
 
     private void nextBack(){
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterScreen3.this, RegisterScreen.class);
-                startActivity(intent);
-            }
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterScreen3.this, RegisterScreen.class);
+            startActivity(intent);
         });
 
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerNewUser();
-            }
-        });
+        btnNext.setOnClickListener(v -> registerNewUser());
     }
-
-
 
     private boolean isFormValidated(){
         String regexForEditIdentityPass = "^[0-9]{9}[A-Z]{2}[0-9]{3}$";

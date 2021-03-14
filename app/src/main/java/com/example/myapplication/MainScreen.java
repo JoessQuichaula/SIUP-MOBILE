@@ -29,6 +29,8 @@ import com.example.myapplication.models.UserItem;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.onesignal.OneSignal;
+import com.onesignal.OneSignalAPIClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +38,8 @@ import retrofit2.Response;
 
 public class MainScreen extends AppCompatActivity {
 
+
+    private static final String ONESIGNAL_APP_ID = "eba7d6c0-9b0a-43b6-933d-6cc9b11501b1";
 
     public UserItem userItem;
     BottomNavigationView bottomNavigationView;
@@ -48,10 +52,13 @@ public class MainScreen extends AppCompatActivity {
     public RetrofitConfig retrofitConfig;
     private final static int REQUEST_CODE = 104;
     boolean isWhiteTheme = true;
+
+
+
     @Override
     public void onBackPressed() {
-        if (selectedFragment instanceof HomeFragment) {
-            HomeFragment homeFragment = ((HomeFragment) selectedFragment);
+        if (lastSelectedFragment instanceof HomeFragment) {
+            HomeFragment homeFragment = ((HomeFragment) lastSelectedFragment);
             if (homeFragment.getCurrentFragmentInViewPager() instanceof ServicesContainer) {
                 if (homeFragment.getCurrentFragmentInViewPager().getChildFragmentManager().getBackStackEntryCount() == 0){
                     homeFragment.tabNavBarhome_viewpager.setCurrentItem(0);
@@ -84,7 +91,10 @@ public class MainScreen extends AppCompatActivity {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setDisplayShowHomeEnabled(false);
                     toolbar.setTitle(null);
-                    findViewById(R.id.appbar).setElevation(0);
+                    appLogo.setVisibility(View.VISIBLE);
+                    appBarLayout.setElevation(0);
+                    appBarLayout.setVisibility(View.VISIBLE);
+                    homeFragment.home_navbar.setVisibility(View.VISIBLE);
                     homeFragment.tabNavBarhome_viewpager.setSwipeLocked(false);
                     homeFragment
                             .getCurrentFragmentInViewPager()
@@ -97,12 +107,21 @@ public class MainScreen extends AppCompatActivity {
                 homeFragment.tabNavBarhome_viewpager.setCurrentItem(0);
             }
         }
+        else if (lastSelectedFragment instanceof ActivitiesFragment){
+            if (lastSelectedFragment.getChildFragmentManager().getBackStackEntryCount()==1){
+                lastSelectedFragment.getChildFragmentManager().popBackStack();
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
         else {
             super.onBackPressed();
         }
     }
 
     public Toolbar toolbar;
+    public ImageView appLogo;
     public AppBarLayout appBarLayout;
     SharedPreferences appDataSaver;
     SharedPreferences.Editor editor;
@@ -133,6 +152,8 @@ public class MainScreen extends AppCompatActivity {
         bottomNavContainer = findViewById(R.id.bottomNavbar_container);
         bottomNavigationView = findViewById(R.id.bottomNavbar);
         appBarLayout = findViewById(R.id.appbar);
+        appLogo = findViewById(R.id.app_logo);
+
 
 
         //TOOLBAR CONFIG
@@ -150,12 +171,17 @@ public class MainScreen extends AppCompatActivity {
         String userJson = appDataSaver.getString("user",null);
         userItem = gson.fromJson(userJson,UserItem.class);
 
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+        //OneSignal Initialization
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setExternalUserId(userItem.getPhoneNumber());
 
         selectedFragment = new HomeFragment();
         lastSelectedFragment = selectedFragment;
         getSupportFragmentManager()
                 .beginTransaction()
-                .addToBackStack(null)
                 .replace(R.id.bottomNavbar_container,selectedFragment,"homeFragment")
                 .commit();
 
@@ -183,8 +209,9 @@ public class MainScreen extends AppCompatActivity {
                 }
 
                 if (isServiceScreen4TheCurrentScreen()){return false;}
-                if (findViewById(R.id.appbar).getVisibility() == View.GONE)
+                if (appBarLayout.getVisibility() == View.GONE)
                 findViewById(R.id.appbar).setVisibility(View.VISIBLE);
+
 
                 return changeFragment();
         });
@@ -224,9 +251,15 @@ public class MainScreen extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.bottomNavbar_container, selectedFragment,fragmentTag)
                 .commit();
+
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        toolbar.setTitle(null);
         retrofitConfig.isFailureThreadListened = false;
         appBarLayout.setElevation(0);
-        //Toast.makeText(MainScreen.this, "0: "+retrofitConfig.isFailureThreadListened, Toast.LENGTH_SHORT).show();
+        appLogo.setVisibility(View.VISIBLE);
         lastSelectedFragment = selectedFragment;
         return true;
     }

@@ -128,16 +128,20 @@ public class ActivitiesScreen extends Fragment {
             }
             @Override
             public void onFailure(Call<ActivityItem> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                if (getView()!=null){
+                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                }
                 retrofitConfig.failureThread(getFragmentManager(),R.id.activitiesContainer);
             }
         });
     }
     private void onResponseSuccess(ActivityItem activityItems, String baseUrl){
         if (activityItems == null || allDivisionItems == null || allServiceItems == null
-        || allCountyItems == null || allDivisionTypeItems == null || allActivityStatusItems == null)
+        || allCountyItems == null || allDivisionTypeItems == null || allActivityStatusItems == null){
+            if (getView()!=null)
             Toast.makeText(getContext(),"Response is Successful but ResponseBody is null" , Toast.LENGTH_SHORT).show();
+        }
         else{
             lastPage = activityItems.getLastPage();
             if (currentPage==lastPage){
@@ -160,15 +164,18 @@ public class ActivitiesScreen extends Fragment {
                     for (DivisionItem divisionItem : allDivisionItems){
                         if (divisionItem.getId() == requestItem.getActivityDivision()){
                             title="";
+                            requestItem.setTxtActivityDivisionAddress(divisionItem.getAddress());
                             for (CountyItem countyItem : allCountyItems){
                                 if (countyItem.getIdCounty() == divisionItem.getIdType()){
                                     title += " "+countyItem.getTxtCounty();
+                                    requestItem.setTxtActivityDivisionCounty(countyItem.getTxtCounty());
                                 }
                             }
 
                             for (DivisionTypeItem divisionTypeItem : allDivisionTypeItems){
                                 if (divisionTypeItem.getId() == divisionItem.getIdType()){
                                     title += " "+divisionTypeItem.getName();
+                                    requestItem.setTxtActivityDivisionType(divisionTypeItem.getName());
                                 }
                             }
                             title += " R:"+divisionItem.getId();
@@ -179,11 +186,11 @@ public class ActivitiesScreen extends Fragment {
 
                 }
                 catch(NullPointerException ex){
-                    Toast.makeText(getContext(), "null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }
             }
             requestItems.addAll(activityItems.getRequestItems());
-            if (currentPage == 1){
+            if (currentPage == 1 && getView()!=null){
                 activitiesAdapter = new ActivitiesAdapter(getContext(),requestItems,getFragmentManager(),getResources());
                 recyclerActivities.setAdapter(activitiesAdapter);
             }
@@ -199,13 +206,13 @@ public class ActivitiesScreen extends Fragment {
                 if (response.isSuccessful()){
                     allServiceItems = response.body();
                 }else{
-                    Toast.makeText(getContext(), "notSuc", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<ServiceItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -218,13 +225,13 @@ public class ActivitiesScreen extends Fragment {
                     allDivisionItems = response.body();
 
                 }else{
-                    Toast.makeText(getContext(), "notSuc", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<DivisionItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -235,14 +242,14 @@ public class ActivitiesScreen extends Fragment {
             public void onResponse(Call<List<CountyItem>> call, Response<List<CountyItem>> response) {
                 if (response.isSuccessful()){
                     allCountyItems = response.body();
-                }else{
-                    Toast.makeText(getContext(), "notSuc", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<CountyItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -254,13 +261,13 @@ public class ActivitiesScreen extends Fragment {
                 if (response.isSuccessful()){
                     allDivisionTypeItems = response.body();
                 }else{
-                    Toast.makeText(getContext(), "notSuc", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<DivisionTypeItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -271,16 +278,18 @@ public class ActivitiesScreen extends Fragment {
             public void onResponse(Call<List<ActivityStatusItem>> call, Response<List<ActivityStatusItem>> response) {
                 if (response.isSuccessful()){
                     allActivityStatusItems = response.body();
-                }else{
-                    Toast.makeText(getContext(), "notSuc", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<ActivityStatusItem>> call, Throwable t) {
-                Toast.makeText(getContext(), "failure", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
+
 
 }

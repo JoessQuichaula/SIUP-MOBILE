@@ -59,7 +59,7 @@ public class ServiceScreen3 extends Fragment {
 
     //Dialog Attributes
     private ImageView imgDialog;
-    private TextView[] txtDialogViews = new TextView[3];
+    private TextView[] txtDialogViews = new TextView[4];
     private Button btnDialogAdvance;
 
 
@@ -179,45 +179,13 @@ public class ServiceScreen3 extends Fragment {
                             if (response.isSuccessful()){
                                 final DivisionTypeItem divisionTypeItem = response.body();
                                 final String divisionNameTypeLocation = divisionTypeItem.getName();
-
                                 callCounty.enqueue(new Callback<CountyItem>() {
                                     @Override
                                     public void onResponse(@NonNull Call<CountyItem> call,@NonNull Response<CountyItem> response) {
                                         if (response.isSuccessful()){
-                                            assert response.body() != null;
-                                            fora = response.body().getTxtCounty();
-                                            final BottomSheetDialog bottomSheetDialog =  new BottomSheetDialog(getContext());
-                                            bottomSheetDialog.setContentView(R.layout.layout_bottomsheet);
-                                            txtDialogViews[0] = bottomSheetDialog.findViewById(R.id.txtDialogTitle);
-                                            txtDialogViews[1] = bottomSheetDialog.findViewById(R.id.txtDialogAddress);
-                                            txtDialogViews[2] = bottomSheetDialog.findViewById(R.id.txtDialogSchedule);
-
-
-                                            txtDialogViews[0].setText(fora+" - "+divisionNameTypeLocation);
-                                            txtDialogViews[1].append(divisionItem.getAddress());
-                                            txtDialogViews[2].append(divisionItem.getOpenTime()+"-"+divisionItem.getCloseTime());
-                                            imgDialog = bottomSheetDialog.findViewById(R.id.imgDialog);
-
-                                            imgDivision = divisionItem.getImgDivision().replace("\\","/");
-
-                                            Glide.with(getContext())
-                                                    .load(baseUrl+"/storage/"+imgDivision)
-                                                    .into(imgDialog);
-
-                                            btnDialogAdvance = bottomSheetDialog.findViewById(R.id.btnDialogAdvance);
-                                            btnDialogAdvance.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    getFragmentManager().beginTransaction()
-                                                            .replace(R.id.services_container,new ServiceScreen4(idDivision,idService),
-                                                                    "serviceScreen4")
-                                                            .addToBackStack(null)
-                                                            .commit();
-                                                    bottomSheetDialog.dismiss();
-                                                }
-                                            });
-                                            bottomSheetDialog.show();
-                                        }else
+                                            onResponseSuccessForMarker(response.body(),divisionNameTypeLocation,divisionItem,baseUrl);
+                                        }
+                                        else
                                             Toast.makeText(getContext(), "Response Fail", Toast.LENGTH_SHORT).show();
                                     }
 
@@ -250,6 +218,54 @@ public class ServiceScreen3 extends Fragment {
             //unityAdapter = new UnityAdapter(unityItems,getContext(),getFragmentManager(),baseUrl);
             //recycler_service.setAdapter(unityAdapter);
         }
+    }
+
+    private void onResponseSuccessForMarker(CountyItem countyItem,String divisionNameTypeLocation,DivisionItem divisionItem,String baseUrl){
+        assert countyItem != null;
+        fora = countyItem.getTxtCounty();
+        final BottomSheetDialog bottomSheetDialog =  new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.layout_bottomsheet);
+        txtDialogViews[0] = bottomSheetDialog.findViewById(R.id.txtDialogTitle);
+        txtDialogViews[1] = bottomSheetDialog.findViewById(R.id.txtDialogAddress);
+        txtDialogViews[2] = bottomSheetDialog.findViewById(R.id.txtDialogSchedule);
+        txtDialogViews[3] = bottomSheetDialog.findViewById(R.id.txtDivisionStatus);
+
+        txtDialogViews[0].setText(fora+" - "+divisionNameTypeLocation);
+        txtDialogViews[1].append(divisionItem.getAddress());
+        txtDialogViews[2].append(divisionItem.getOpenTime()+"-"+divisionItem.getCloseTime());
+        imgDialog = bottomSheetDialog.findViewById(R.id.imgDialog);
+
+        imgDivision = divisionItem.getImgDivision().replace("\\","/");
+
+        Glide.with(getContext())
+                .load(baseUrl+"/storage/"+imgDivision)
+                .into(imgDialog);
+
+        btnDialogAdvance = bottomSheetDialog.findViewById(R.id.btnDialogAdvance);
+        if(divisionItem.getIdStatus()==2){
+            String txtStatus = "(Fechado)*";
+            btnDialogAdvance.setEnabled(false);
+            btnDialogAdvance.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            txtDialogViews[3].setText(txtStatus);
+            txtDialogViews[3].setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        }
+        else {
+            String txtStatus = "(Aberto)*";
+            btnDialogAdvance.setEnabled(true);
+            btnDialogAdvance.setBackgroundColor(getResources().getColor(R.color.colorApp));
+            txtDialogViews[3].setText(txtStatus);
+            txtDialogViews[3].setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+        }
+
+        btnDialogAdvance.setOnClickListener(v -> {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.services_container,new ServiceScreen4(idDivision,idService),
+                            "serviceScreen4")
+                    .addToBackStack(null)
+                    .commit();
+            bottomSheetDialog.dismiss();
+        });
+        bottomSheetDialog.show();
     }
 
 

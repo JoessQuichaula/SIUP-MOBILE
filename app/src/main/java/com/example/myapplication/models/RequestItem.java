@@ -28,9 +28,16 @@ public class RequestItem {
 
     private String txtActivityDivision;
 
+    private String txtActivityDivisionType;
+
+    private String txtActivityDivisionAddress;
+
+    private String txtActivityDivisionCounty;
+
     public RequestItem(int activityId, int activityDivision, int activityService,
                        String activityDate, int activityStatus, String txtActivityService,
-                       String txtActivityDivision,String txtActivityStatus,String txtReason) {
+                       String txtActivityDivision,String txtActivityStatus,String txtReason,
+                       String txtActivityDivisionType,String txtActivityDivisionAddress, String txtActivityDivisionCounty) {
         this.activityId = activityId;
         this.activityDivision = activityDivision;
         this.activityService = activityService;
@@ -38,6 +45,9 @@ public class RequestItem {
         this.activityStatus = activityStatus;
         this.txtActivityService = txtActivityService;
         this.txtActivityDivision = txtActivityDivision;
+        this.txtActivityDivisionType = txtActivityDivisionType;
+        this.txtActivityDivisionAddress =txtActivityDivisionAddress;
+        this.txtActivityDivisionCounty = txtActivityDivisionCounty;
         this.txtActivityStatus = txtActivityStatus;
         this.txtReason = txtReason;
 
@@ -97,6 +107,30 @@ public class RequestItem {
 
     public void setTxtActivityDivision(String txtActivityDivision) {
         this.txtActivityDivision = txtActivityDivision;
+    }
+
+    public String getTxtActivityDivisionType() {
+        return txtActivityDivisionType;
+    }
+
+    public void setTxtActivityDivisionType(String txtActivityDivisionType) {
+        this.txtActivityDivisionType = txtActivityDivisionType;
+    }
+
+    public String getTxtActivityDivisionAddress() {
+        return txtActivityDivisionAddress;
+    }
+
+    public void setTxtActivityDivisionAddress(String txtActivityDivisionAddress) {
+        this.txtActivityDivisionAddress = txtActivityDivisionAddress;
+    }
+
+    public String getTxtActivityDivisionCounty() {
+        return txtActivityDivisionCounty;
+    }
+
+    public void setTxtActivityDivisionCounty(String txtActivityDivisionCounty) {
+        this.txtActivityDivisionCounty = txtActivityDivisionCounty;
     }
 
     public String getTxtActivityStatus() {

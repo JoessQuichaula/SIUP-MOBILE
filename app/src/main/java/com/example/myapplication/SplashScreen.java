@@ -36,6 +36,7 @@ public class SplashScreen extends AppCompatActivity {
     private SharedPreferences appDataSaver;
     ShineImageView shine;
     ShineImageView logo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +44,16 @@ public class SplashScreen extends AppCompatActivity {
         shine = findViewById(R.id.imgAngolaFlag);
         logo = findViewById(R.id.app_logo);
         appDataSaver = getSharedPreferences(APP_SHARED_PREFERENCE_NAME,MODE_PRIVATE);
-        new ShineAnimator().setShineView(shine).setInterpolator(new LinearInterpolator()).start();
-        new ShineAnimator().setShineView(logo).setInterpolator(new LinearInterpolator()).start();
+
+        new ShineAnimator()
+                .setShineView(shine)
+                .setInterpolator(new LinearInterpolator())
+                .start();
+
+        new ShineAnimator().
+                setShineView(logo).
+                setInterpolator(new LinearInterpolator()).
+                start();
 
         //Start new Activity after 5 secs delayed
         new Handler().postDelayed(new Runnable() {
@@ -75,4 +84,6 @@ public class SplashScreen extends AppCompatActivity {
             }
         }
     }
+
+
 }

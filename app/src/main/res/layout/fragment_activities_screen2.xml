@@ -47,6 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Unidade: "/>
 
             <TextView
@@ -68,6 +69,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Servico: "/>
 
             <TextView
@@ -89,6 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Data: "/>
 
             <TextView
@@ -110,6 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Nº de Processo da Repartição: "/>
 
             <TextView
@@ -131,6 +135,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Localização: "/>
 
             <TextView
@@ -152,6 +157,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Tipo: "/>
 
             <TextView
@@ -173,6 +179,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Estado da Solicitação: "/>
 
             <TextView
@@ -196,13 +203,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Motivo: "/>
 
             <TextView
                 android:id="@+id/txtActivityReason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="txtUnity"
+                android:text="Sem Resultado"
                 />
 
         </LinearLayout>

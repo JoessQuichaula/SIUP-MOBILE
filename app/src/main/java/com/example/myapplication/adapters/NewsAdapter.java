@@ -1,26 +1,19 @@
 package com.example.myapplication.adapters;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
 import com.example.myapplication.home_ui.FeedNews.FeedNews2;
 import com.example.myapplication.models.NewsItem;
 import com.example.myapplication.R;
@@ -28,7 +21,7 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     private List<NewsItem> newsItems;
     private Context context;
@@ -45,16 +38,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolde
 
     @NonNull
     @Override
-    public News_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_feednews,parent,false);
-        return new News_ViewHolder(view);
+        return new NewsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull News_ViewHolder holder, int position) {
-
-
-
+    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsItems.get(position);
 
         String txtNewsTitle = newsItem.getTxtNewsTitle();
@@ -63,33 +53,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolde
         String fullImagePath = baseUrl+"/storage/"+imgNews;
 
         Glide.with(context)
-                .load("https://jornaldeangola.ao"+newsItem.getImgNews())
+                .load(fullImagePath)
                 .into(holder.imgNews);
-
 
         holder.txtNewsTitle.setText(Html.fromHtml(txtNewsTitle));
         holder.txtNewsBody.setText(Html.fromHtml(txtNewsBody));
         holder.txtNewsTime.setText(newsItem.getTxtNewsTime());
-
         holder.itemView.setOnClickListener(v -> {
-            activity.findViewById(R.id.appbar).setElevation(6);
-            activity.findViewById(R.id.app_logo).setVisibility(View.GONE);
             activity.findViewById(R.id.home_navbar).setVisibility(View.GONE);
-            FeedNews2 feedNews2 = new FeedNews2();
-            Bundle bundle = new Bundle();
-            bundle.putCharSequence("txtNewsTitle",holder.txtNewsTitle.getText());
-            bundle.putString("txtNewsBody",txtNewsBody);
-            bundle.putString("imgNews","https://jornaldeangola.ao"+newsItem.getImgNews());
-            bundle.putString("newsLink",newsItem.getNewsLink());
-            feedNews2.setArguments(bundle);
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.feedNewsContainer,feedNews2)
+                    .replace(R.id.feedNewsContainer,new FeedNews2(txtNewsBody,txtNewsTitle))
                     .addToBackStack(null)
                     .commit();
         });
-
-
     }
 
     @Override
@@ -97,7 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolde
         return newsItems.size();
     }
 
-    public static class News_ViewHolder extends RecyclerView.ViewHolder {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder {
         ImageView imgNews;
         TextView txtNewsTitle;
         TextView txtNewsBody;
@@ -105,7 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.News_ViewHolde
         TextView txtNewsReadMore;
 
 
-        public News_ViewHolder(@NonNull View itemView) {
+        public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             imgNews = itemView.findViewById(R.id.imgNews);
             txtNewsTitle = itemView.findViewById(R.id.txtNewsTitle);
